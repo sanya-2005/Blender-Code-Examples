@@ -157,35 +157,3 @@ class MyOperator(bpy.types.Operator):
 
 
 
-# ---------------------------- ОПЕРАТОР В МЕНЮ В ВИДЕ ВЫПАДАЮЩЕГО СПИСКА ----------------------------
-# Если прикрепить к bpy.types.Menu при помощи UILayout.operator_menu_enum,
-# то появится пункт с выпадающим списком, где в качестве контента будут элементы bpy.props.EnumProperty
-# После клика по элементу запустится оператор со значением этого элемента
-
-class MyOperator(bpy.types.Operator):
-    bl_idname = "test.my_operator"
-    bl_label = "My Operator"
-    bl_description = "My Operator description"
-    bl_options = {'UNDO', 'REGISTER'}
-
-    # Самое сложное в Enum Property - это items, сами элементы перечисления. необходимо передать список кортежей
-    # Кортеж должен иметь строгую структуру - ("ID", "Name", "Description", "ICON", ID_Number)
-    # Первые три всегда обязательны, последние два можно не писать, но если нужен хоть один из них - придется писать оба (выяснено опытным путем, возможны ошибки)
-    menu_prop:bpy.props.EnumProperty(name="Menu Prop", default='ONE', items=[
-        ('ONE', "One", "One number"),
-        ('TWO', "Two", "Two number"),
-        ('THREE', "Three", "Three number")])
-
-    def execute(self, context):
-        print(self.menu_prop)
-        return {'FINISHED'}
-
-#.........
-
-# Draw-функция, которую можно прикрепить к чему-либо. Должна сигнатурой соответствовать draw() у UI элементов
-def draw_op(self, context):
-    self.layout.operator_menu_enum("test.my_operator", "menu_prop")
-
-# Каждое меню, панелька - это отдельный класс. К ним можно добавлять кастоные функции отрисовки, которые исполнятся после основного кода
-# В нашем случае это меню Add в заголовке Вьюпорта
-bpy.types.VIEW3D_MT_add.append(draw_op)
