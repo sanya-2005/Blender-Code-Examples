@@ -18,8 +18,9 @@
 # На этом примере мы добавили сцене целочисленное свойство
 # У свойство опять же куча параметров, name задает имя в UI, default - дефолтное значение, а вот subtype говорит, как будет отображаться виджет с доступом к свойству
 # В нашем случае, если сделать layout.prop(scene, "my_prop"), то будет слайдер
+# Результат: https://github.com/sanya-2005/Blender-Code-Examples/blob/main/images/int_prop.png
 
-bpy.types.Scene.my_prop = bpy.props.IntProperty(name="My Prop", default = 2, subtype="FACTOR")
+bpy.types.Scene.my_prop = bpy.props.IntProperty(name="My Prop", default = 2, subtype="FACTOR", min = 0, max = 100)
 
 
 

@@ -94,6 +94,7 @@ class MyOperator(bpy.types.Operator):
 # ---------------------------- СООБЩЕНИЯ ПРИ ИСПОЛНЕНИИ ОПЕРАТОРА ----------------------------
 # У некоторых операторов при выполнении выскакивает сообщение, либо у курсора, либо в нижней полосе
 # Сделать его можно через Operator.report()
+# Результат: https://github.com/sanya-2005/Blender-Code-Examples/blob/main/images/operator_msg.png
 
 class MyOperator(bpy.types.Operator):
     bl_idname = "test.my_operator"
@@ -120,6 +121,7 @@ class MyOperator(bpy.types.Operator):
 # ---------------------------- ОПЕРАТОР С ДИАЛОГОВЫМ ОКНОМ ПЕРЕД ЗАПУСКОМ ----------------------------
 # Перед запуском появится диалог, где можно указать значения свойствам оператора перед запуском
 # После нажатия кнопки ОК или нажатия Enter оператор исполнится
+# Результат: https://github.com/sanya-2005/Blender-Code-Examples/blob/main/images/operator_invoke_dialog.png
 
 class MyOperator(bpy.types.Operator):
     bl_idname = "test.my_operator"
@@ -128,7 +130,7 @@ class MyOperator(bpy.types.Operator):
     bl_options = {'UNDO', 'REGISTER'}
 
     text_prop:bpy.props.StringProperty(name="Text Prop", default="default")
-    int_prop: bpy.props.IntProperty(name="Int Prop", default=1, subtype='FACTOR')
+    int_prop: bpy.props.IntProperty(name="Int Prop", default=1, subtype='FACTOR', min = 0, max = 100)
 
     def execute(self, context):
 
@@ -151,7 +153,7 @@ class MyOperator(bpy.types.Operator):
         row.label(text="Text Property")
         row.prop(self, "text_prop", text="")
 
-        row - layout.row()
+        row = layout.row()
         row.label(text="Int Property")
         row.prop(self, "int_prop", text="")
 

@@ -56,7 +56,7 @@ class MyPanel(bpy.types.Panel):
         row.label(text = "active object: " + text_str)
 
         row = layout.row()
-        row.operator("wm.quit_blender", text="хватить сидеть в своем блендере!")
+        row.operator("wm.quit_blender", text="хватить сидеть в своем блендере!", icon="QUIT")
 
 class MyMenu(bpy.types.Menu):
     bl_label = "My Menu"

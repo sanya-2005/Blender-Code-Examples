@@ -1,5 +1,6 @@
 # ---------------------------- ПРОСТАЯ ПАНЕЛЬ ----------------------------
 # Будет находится во Вьюпорте, в N панелях в категории My Panel. Внутри ее будет текст "Hello Blender!"
+# Результат: https://github.com/sanya-2005/Blender-Code-Examples/blob/main/images/simple_panel.png
 
 class MyPanel(bpy.types.Panel):
     # Как и у оператора, у панели должно быть свое имя. Желательно составлять имя по определенному правилу (а иначе блендер будет ругаться в консоль):
@@ -27,6 +28,7 @@ class MyPanel(bpy.types.Panel):
 # То же создание двух операторов от одного row приведет к тому, что у меню поломается верстка
 # Поэтому вместо создания промежуточных контейнеров работают напрямую с self.layout
 # Меню в этом примере появится в заголовке Вьюпорта
+# Результат: https://github.com/sanya-2005/Blender-Code-Examples/blob/main/images/simple_menu.png
 
 class MyMenu(bpy.types.Menu):
     # Название меню
@@ -64,24 +66,29 @@ def draw(self, context):
     layout = self.layout
 
     # в UI появится кнопка, название которой - bl_label у оператора
+    # Результат: https://github.com/sanya-2005/Blender-Code-Examples/blob/main/images/simple_operator.png
     layout.operator('object.add')
 
     # У UILayout.operator() много интересных аргументов. Например так можно сделать кнопку, у которой вместо названия будет иконка плюса
     # В качестве иконки надо указать текстовой ID иконки. Получить их можно через встроенный аддон Icon Viewer,
     # появится кнопка в Info и панель в тест едиторе
+    # Результат: https://github.com/sanya-2005/Blender-Code-Examples/blob/main/images/operator_custom_icon.png
     layout.operator('object.add', text="", icon="ADD")
 
     # У многих операторов есть параметры. Если при вызове из кода их можно указывать как обычной функции, то в UI это делаетя через
     # operator().имя_параметра = значение
+    # Результат аналогичен https://github.com/sanya-2005/Blender-Code-Examples/blob/main/images/operator_custom_icon.png. Рзаница в поведении
     layout.operator('object.add', text="", icon="ADD").type = "MESH"
 
     # Есть довольно интересные способы отображения операторов. operator_menu_enum() отображает оператор в виде меню, где
     # его элементы - значения для EnumProperty
     # вторым аргументов после оператора надо указать имя свойства - перечисления, элементы которого будет представлять меню
+    # Результат: https://github.com/sanya-2005/Blender-Code-Examples/blob/main/images/operator_menu_enum.png
     layout.operator_menu_enum('object.convert', 'target')
 
     # Похожий на operator_menu_enum() метод - operator_enum(). Тоже самое, но operator_enum() 
-    # Не создает отдельную подменюшку, а просто располагает все значения перечисления как отдельные элементы 
+    # Не создает отдельную подменюшку, а просто располагает все значения перечисления как отдельные элементы меню
+    # Результат: https://github.com/sanya-2005/Blender-Code-Examples/blob/main/images/operator_enum.png
     layout.operator_enum('object.convert', 'target')
 
 
@@ -95,13 +102,15 @@ def draw(self, context):
     # Сначала пишем то, с чего берем свойство, потом путь к свойству. Стоит заметить, что блендер не распознает в пути вложенность
     # Т.Е. путь - это по сути только название свойства
     # Например на prop(context.scene, "cycles.preview_samples") выдаст оишбку, но не на prop(context.scene.cycles, "preview_samples")
+    # Результат: https://github.com/sanya-2005/Blender-Code-Examples/blob/main/images/prop.png
     layout.prop(context.object, "mode")
 
     # Некоторые свойства представлены массивами (например слои арматуры). Если прописать просто prop(armature, "layers")
     # То оно создает виджет со всеми слоями. Но вам например для рига надо получить доступ к конкретному слою
     # Это можно сделать, указав index. Стоит заметить, что правило нумерации массивов с 0 тут работает,
     # Первый элемент - это 0, второй - это 1, и т.п. Просто нумерация идет с нуля
-    layout.prop(context.object.data, "layers", index = 0)
+    # Результат: https://github.com/sanya-2005/Blender-Code-Examples/blob/main/images/prop_array.png
+    layout.prop(context.object.data, "layers", index = 0, text = "Layer 1", toggle = True)
 
 
 
