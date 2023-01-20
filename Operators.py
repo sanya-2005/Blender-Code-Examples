@@ -156,6 +156,3 @@ class MyOperator(bpy.types.Operator):
         row = layout.row()
         row.label(text="Int Property")
         row.prop(self, "int_prop", text="")
-
-
-
