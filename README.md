@@ -15,3 +15,4 @@
 + [Свойства](https://github.com/sanya-2005/Blender-Code-Examples/blob/main/props.py "props.py")
 + [Пример аддона](https://github.com/sanya-2005/Blender-Code-Examples/tree/main/simple_addon "simple addon")
 + [Пример аддона как импортируемого модуля](https://github.com/sanya-2005/Blender-Code-Examples/tree/main/addon_library "addon library")
++ [Всякое прочее (что нельзя отнести ни к какой другой категории, но полезно знать)](https://github.com/sanya-2005/Blender-Code-Examples/blob/main/other.md "Другое")
