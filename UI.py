@@ -13,7 +13,7 @@ class MyPanel(bpy.types.Panel):
     bl_space_type = 'VIEW_3D'
     # Регион окна, в котором будет панель. Мы выбрали 'UI', во вьюпорте это N панели
     bl_region_type = 'UI'
-    # Вкладка, в которой находится панель. Если указать несуществующую - то появится новая категория с этим именем
+    # Вкладка, в которой находится панель. Если указать несуществующую - то появится новая вкладка с этим именем
     bl_category = 'My Panel'
 
     # Функция отрисовки содержимого панели - самое главное
@@ -55,7 +55,41 @@ def draw(self, context):
     # На панели например оно будет отображаться как кнопка с выпадающим списком, а в меню секции вьюпорта - как обычное меню
     self.layout.menu(MyMenu.bl_idname)
 
+# Прикрепляем функцию отрисовки к классу менюшек вьюпорта
 bpy.types.VIEW3D_MT_editor_menus.append(draw)
+
+
+
+# ---------------------------- ПАЙ МЕНЮ ----------------------------
+# Круговое меню с несколькими вариантами выбора. Хоть и может принимать все типы свойств, но имеет смысл работать только с перечислением (EnumProperty)
+# Его также надо зарегистрировать, и также по необычному вызывать
+# Вызов пай меню делается через bpy.ops.wm.call_menu_pie(), где в аргументах указать имя Пай меню. Имменем может вступать bl_idname, или имя класса
+# Наше пай меню будет менять тип отображения объекта во вьюпорте
+# Результат: https://github.com/sanya-2005/Blender-Code-Examples/blob/main/images/pie_menu.png
+class VIEW3D_MT_Object_Viewport_Display(bpy.types.Menu):
+    bl_label = "Object display As"
+    # Я выяснил, что необязательно указывать bl_idname, вместо него будет использоваться имя класса
+    # bl_idname = "VIEW3D_MT_Display_As"
+
+    @classmethod
+    def poll(cls, context):
+        return context.object is not None
+
+    def draw(self, context):
+        layout = self.layout
+
+        # Необходимо получить от layout контейнер для пай меню 
+        pie = layout.menu_pie()
+
+        # Параметр expand нужен, чтобы "развернуть" меню. Попробуйте его убрать, и сами поймете
+        # Можно протащить в пай меню не только свойства. Достаточно вспомнить про layout.operator_enum(), оно тоже будет работать
+        pie.prop(context.object, "display_type", expand = True)
+
+# Дальше необходимо использовать пай меню. Так уж вышло, что абсолютно все пай меню вызываются по хоткею, и мы не будем исключением
+# Необходимо войти в Preferences->keymap, создавать новый хоткей там, где вам нужно, и дальше в левом боксе ввести wm.call_menu_pie
+# После этого слева внизу появятся боксы под каждый параметр оператора (у нас он один - это имя пай меню). Указываем там имя класса или bl_idname
+# Картинка: https://github.com/sanya-2005/Blender-Code-Examples/blob/main/images/pie_keymap.png
+# Для подробной информации смотри other.py
 
 
 
@@ -77,7 +111,7 @@ def draw(self, context):
 
     # У многих операторов есть параметры. Если при вызове из кода их можно указывать как обычной функции, то в UI это делаетя через
     # operator().имя_параметра = значение
-    # Результат аналогичен https://github.com/sanya-2005/Blender-Code-Examples/blob/main/images/operator_custom_icon.png. Рзаница в поведении
+    # Результат аналогичен https://github.com/sanya-2005/Blender-Code-Examples/blob/main/images/operator_custom_icon.png. Разница в поведении
     layout.operator('object.add', text="", icon="ADD").type = "MESH"
 
     # Есть довольно интересные способы отображения операторов. operator_menu_enum() отображает оператор в виде меню, где
@@ -94,7 +128,7 @@ def draw(self, context):
 
 
 # ---------------------------- РАБОТА СО СВОЙСТВАМИ ----------------------------
-# В UI также можно отображать свойства чего-либо (bpy.props). То, как рисуется свойство - зависит от его настроек
+# В UI также можно отображать свойства чего-либо (bpy.props). То, как рисуется свойство - зависит от его типа и настроек
 
 def draw(self, context):
     layout = self.layout
@@ -111,9 +145,3 @@ def draw(self, context):
     # Первый элемент - это 0, второй - это 1, и т.п. Просто нумерация идет с нуля
     # Результат: https://github.com/sanya-2005/Blender-Code-Examples/blob/main/images/prop_array.png
     layout.prop(context.object.data, "layers", index = 0, text = "Layer 1", toggle = True)
-
-
-
-
-
-
