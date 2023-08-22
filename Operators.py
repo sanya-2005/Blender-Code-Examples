@@ -164,7 +164,7 @@ class MyOperator(bpy.types.Operator):
 # Иногда существует необходимость запустить оператор в измененном контексте (например для проставки ключей через bpy.ops.anim.keyframe_insert)
 # И при этом не изменять оригинальный. Для этого было создано переопределение контекста
 # Оно создается при помощи блока with. Все, что написано в нем - будет использовать переопределенный, измененный контекст
-# Результат:
+# Результат: https://github.com/sanya-2005/Blender-Code-Examples/blob/main/images/context_override.png
 
 class MyOperator(bpy.types.Operator):
     bl_idname = "test.my_operator"

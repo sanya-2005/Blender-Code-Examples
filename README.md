@@ -16,9 +16,11 @@
 + [Плейлист Андрея Соколова (сам по нему учился)](https://www.youtube.com/playlist?list=PLOVSu7-KesPgPiatDTP7jvdgxxwp18LyH)
 
 # Указатель
-+ [Операторы (основа, всякие приколюхи вроде сообщения об ошибке)](https://github.com/sanya-2005/Blender-Code-Examples/blob/main/Operators.py "Operator.py")
++ [Операторы (основа, всякие плюшки вроде сообщении об ошибке)](https://github.com/sanya-2005/Blender-Code-Examples/blob/main/Operators.py "Operator.py")
 + [UI (панели, менюшки, и т.д.)](https://github.com/sanya-2005/Blender-Code-Examples/blob/main/UI.py "UI.py")
 + [Свойства](https://github.com/sanya-2005/Blender-Code-Examples/blob/main/props.py "props.py")
++ [Отрисовка текста](https://github.com/sanya-2005/Blender-Code-Examples/blob/main/Font.md "Font.md")
++ [Общий материал об рисовании через API](https://github.com/sanya-2005/Blender-Code-Examples/blob/main/Draw.md "Draw.md")
 + [Пример аддона](https://github.com/sanya-2005/Blender-Code-Examples/tree/main/simple_addon "simple addon")
 + [Пример аддона как импортируемого модуля](https://github.com/sanya-2005/Blender-Code-Examples/tree/main/addon_library "addon library")
 + [Всякое прочее (что нельзя отнести ни к какой другой категории, но полезно знать)](https://github.com/sanya-2005/Blender-Code-Examples/blob/main/other.md "Другое")
