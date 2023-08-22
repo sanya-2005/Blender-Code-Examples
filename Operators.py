@@ -157,3 +157,31 @@ class MyOperator(bpy.types.Operator):
         row = layout.row()
         row.label(text="Int Property")
         row.prop(self, "int_prop", text="")
+
+
+
+# ---------------------------- ПЕРЕОПРЕДЕЛЕНИЕ КОНТЕКСТА ----------------------------
+# Иногда существует необходимость запустить оператор в измененном контексте (например для проставки ключей через bpy.ops.anim.keyframe_insert)
+# И при этом не изменять оригинальный. Для этого было создано переопределение контекста
+# Оно создается при помощи блока with. Все, что написано в нем - будет использовать переопределенный, измененный контекст
+# Результат:
+
+class MyOperator(bpy.types.Operator):
+    bl_idname = "test.my_operator"
+    bl_label = "My Operator"
+    bl_description = "My Operator description"
+    bl_options = {'UNDO', 'REGISTER'}
+
+    def print_active_object_name(self, context):
+        print("active object name is " + context.active_object.name)
+
+    # Допустим, что у нас есть object_1 и object_2. Выведем их имя. Активным объектом будет object_1
+    def execute(self, context):
+        self.print_active_object_name(context)
+
+        with context.temp_override(active_object = bpy.data.objects["object_2"]):
+            self.print_active_object_name(context)
+
+        self.print_active_object_name(context)
+
+        return {'FINISHED'}

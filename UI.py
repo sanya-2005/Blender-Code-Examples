@@ -105,7 +105,7 @@ def draw(self, context):
 
     # У UILayout.operator() много интересных аргументов. Например так можно сделать кнопку, у которой вместо названия будет иконка плюса
     # В качестве иконки надо указать текстовой ID иконки. Получить их можно через встроенный аддон Icon Viewer,
-    # появится кнопка в Info и панель в тест едиторе
+    # появится кнопка в Info и панель в текстовом редакторе
     # Результат: https://github.com/sanya-2005/Blender-Code-Examples/blob/main/images/operator_custom_icon.png
     layout.operator('object.add', text="", icon="ADD")
 

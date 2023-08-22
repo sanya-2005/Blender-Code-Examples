@@ -1,4 +1,6 @@
-# У каждого аддона должна быть переменная bl_info, где пишется описание аддона. ЧТо значат ключи внутри нее - можно легко догадаться
+import bpy
+
+# У каждого аддона должна быть переменная bl_info, где пишется описание аддона
 bl_info = {
     "name": "My Test Addon",
     "author": "You",
@@ -10,8 +12,6 @@ bl_info = {
     "doc_url": "",
     "category": "Other",
 }
-
-import bpy
 
 class PrintSelectedObjects(bpy.types.Operator):
     bl_idname = "text.print_selected_objects"
